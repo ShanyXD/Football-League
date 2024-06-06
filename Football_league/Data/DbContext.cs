@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
+using Football_league.Models;
 
-namespace Football_league.Data
+public class FootballLeagueContext : DbContext
 {
-    internal class DbContext
+    public DbSet<Team> Teams { get; set; }
+    public DbSet<Matches> Matches { get; set; }
+    public DbSet<Standing> Standings { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        optionsBuilder.UseMySql("server=localhost;database=FootballLeague;user=root;password=",
+            new MySqlServerVersion(new Version(8, 2, 12)));
     }
 }
