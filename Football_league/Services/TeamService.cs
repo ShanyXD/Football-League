@@ -1,12 +1,29 @@
-﻿using System;
+﻿using FootballLeague.Data;
+using FootballLeague.Models;
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Football_league.Services
+namespace FootballLeague.Services
 {
-    internal class TeamService
+    public class TeamService
     {
+        private readonly FootballLeagueContext _context;
+
+        public TeamService(FootballLeagueContext context)
+        {
+            _context = context;
+        }
+
+        public void AddTeam(Team team)
+        {
+            _context.Teams.Add(team);
+            _context.SaveChanges();
+        }
+
+        public List<Team> GetTeams()
+        {
+            return _context.Teams.ToList();
+        }
     }
 }

@@ -1,16 +1,37 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
-using Football_league.Models;
+using FootballLeague.Models;
 
-public class FootballLeagueContext : DbContext
+namespace FootballLeague.Data
 {
-    public DbSet<Team> Teams { get; set; }
-    public DbSet<Matches> Matches { get; set; }
-    public DbSet<Standing> Standings { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class FootballLeagueContext : DbContext
     {
-        optionsBuilder.UseMySql("server=localhost;database=FootballLeague;user=root;password=",
-            new MySqlServerVersion(new Version(8, 2, 12)));
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Match> Matches { get; set; }
+        public DbSet<Standing> Standings { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseMySql("server=localhost;database=FootballLeague;user=root;password=yourpassword",
+                new MySqlServerVersion(new Version(8, 2, 12)));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Match>()
+                .HasKey(m => m.MatchID);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.HomeTeam)
+                .WithMany()
+                .HasForeignKey(m => m.HomeTeamID);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.AwayTeam)
+                .WithMany()
+                .HasForeignKey(m => m.AwayTeamID);
+
+            modelBuilder.Entity<Standing>()
+                .HasKey(s => s.TeamID);
+        }
     }
 }

@@ -1,39 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FootballLeague.Data;
+using FootballLeague.Models;
+using System.Collections.Generic;
 using System.Linq;
 
-public class TeamsController : Controller
+namespace FootballLeague.Services
 {
-    private readonly FootballLeagueContext _context;
-
-    public TeamsController(FootballLeagueContext context)
+    public class LeagueService
     {
-        _context = context;
+        private readonly FootballLeagueContext _context;
+
+        public LeagueService(FootballLeagueContext context)
+        {
+            _context = context;
+        }
+
+        public List<LeagueTable> GetLeagueTable()
+        {
+            var leagueTable = _context.LeagueTables
+                .Include(l => l.Team)
+                .OrderByDescending(l => l.Points)
+                .ThenByDescending(l => l.GoalDifference)
+                .ToList();
+            return leagueTable;
+        }
     }
-
-    // Action methods for creating, reading, updating, and deleting teams
 }
-
-public class MatchesController : Controller
-{
-    private readonly FootballLeagueContext _context;
-
-    public MatchesController(FootballLeagueContext context)
-    {
-        _context = context;
-    }
-
-    // Action methods for creating, reading, updating, and deleting matches
-}
-
-public class StandingsController : Controller
-{
-    private readonly FootballLeagueContext _context;
-
-    public StandingsController(FootballLeagueContext context)
-    {
-        _context = context;
-    }
-
-    // Action methods for viewing standings
-}
-
