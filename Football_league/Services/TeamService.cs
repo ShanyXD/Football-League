@@ -1,10 +1,7 @@
-﻿using FootballLeague.Data;
-using FootballLeague.Models;
+﻿using Football_league.Data;
+using Football_league.Models;
 
-using System.Collections.Generic;
-using System.Linq;
-
-namespace FootballLeague.Services
+namespace Football_league.Services
 {
     public class TeamService
     {

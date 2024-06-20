@@ -1,10 +1,8 @@
-﻿using FootballLeague.Data;
-using FootballLeague.Models;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Football_league.Data;
+using Football_league.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FootballLeague.Services
+namespace Football_league.Services
 {
     public class MatchService
     {

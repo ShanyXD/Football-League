@@ -1,7 +1,7 @@
-﻿
-using FootballLeague;
-using FootballLeague.Data;
-using FootballLeague.Services;
+﻿using Football_league;
+using Football_league.Data;
+using Football_league.Services;
+using Football_League.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,7 +13,7 @@ namespace FootballLeague_WithORM
         {
             var serviceProvider = new ServiceCollection()
                 .AddDbContext<FootballLeagueContext>(options =>
-                    options.UseMySql("server=localhost; database=football_league; user=root; password=your_password",
+                    options.UseMySql("server=localhost; database=footballleague; user=root; password=your_password",
                     new MySqlServerVersion(new Version(8, 2, 12))))
                 .AddScoped<TeamService>()
                 .AddScoped<MatchService>()

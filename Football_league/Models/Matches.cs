@@ -1,9 +1,8 @@
-﻿using FootballLeague.Models;
-using System;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FootballLeague.Models
+namespace Football_league.Models
 {
     public class Match
     {

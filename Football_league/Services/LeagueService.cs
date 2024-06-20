@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Football_league.Models;
-using FootballLeague.Data;
+using Football_league.Data;
 
-namespace FootballLeague_WithORM.Services
+namespace Football_League.Services
 {
     public class LeagueService
     {
@@ -15,18 +13,18 @@ namespace FootballLeague_WithORM.Services
             _context = context;
         }
 
-        public List<LeagueTable> GetLeagueTable()
+        public List<TeamInfo> GetLeagueTable()
         {
-            // Here you need to calculate the league table based on matches
+            
             var teams = _context.Teams.Include(t => t.HomeMatches).Include(t => t.AwayMatches).ToList();
-            var leagueTable = new List<LeagueTable>();
+            var leagueTable = new List<TeamInfo>();
 
             foreach (var team in teams)
             {
-                var leagueEntry = new LeagueTable
+                var leagueEntry = new TeamInfo
                 {
                     TeamID = team.TeamID,
-                    Team = team,
+                    Team = team.TeamName,
                     Played = 0,
                     Won = 0,
                     Drawn = 0,
@@ -61,11 +59,23 @@ namespace FootballLeague_WithORM.Services
                 leagueEntry.Points = leagueEntry.Won * 3 + leagueEntry.Drawn;
                 leagueTable.Add(leagueEntry);
             }
+            
+            
 
             return leagueTable.OrderByDescending(lt => lt.Points)
-                              .ThenByDescending(lt => lt.GoalDifference)
+                              .ThenByDescending(lt => lt.GoalsFor - lt.GoalsAgainst)
                               .ThenByDescending(lt => lt.GoalsFor)
                               .ToList();
         }
+
+        //public List<TeamInfo> GetLeagueTable()
+        //{
+           // var leagueTable = _context.LeagueTables
+              //  .Include(l => l.Team)
+            //    .OrderByDescending(l => l.Points)
+               // .ThenByDescending(l => l.GoalDifference)
+              //  .ToList();
+            //return leagueTable;
+       // }
     }
 }

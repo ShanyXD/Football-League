@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using FootballLeague.Models;
+using Football_league.Models;
 
-namespace FootballLeague.Data
+namespace Football_league.Data
 {
     public class FootballLeagueContext : DbContext
     {
@@ -11,7 +11,7 @@ namespace FootballLeague.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;database=FootballLeague;user=root;password=yourpassword",
+            optionsBuilder.UseMySql("server=localhost;database=footballleague;user=root;password=",
                 new MySqlServerVersion(new Version(8, 2, 12)));
         }
 

@@ -1,9 +1,9 @@
-﻿using FootballLeague.Services;
-using FootballLeague.Models;
-using System;
+﻿using Football_league.Services;
+using Football_league.Models;
+using Football_League.Services;
 
 
-namespace FootballLeague
+namespace Football_league
 {
     public class Display
     {
@@ -134,7 +134,7 @@ namespace FootballLeague
             Console.WriteLine("League Table:");
             foreach (var entry in leagueTable)
             {
-                Console.WriteLine($"{entry.Team.TeamName}: Played {entry.Played}, Won {entry.Won}, Drawn {entry.Drawn}, Lost {entry.Lost}, GF {entry.GoalsFor}, GA {entry.GoalsAgainst}, GD {entry.GoalDifference}, Points {entry.Points}");
+                Console.WriteLine($"{entry.Team}: Played {entry.Played}, Won {entry.Won}, Drawn {entry.Drawn}, Lost {entry.Lost}, GF {entry.GoalsFor}, GA {entry.GoalsAgainst}, GD {entry.GoalsFor - entry.GoalsAgainst}, Points {entry.Points}");
             }
             Console.WriteLine("Press any key to return to the main menu.");
             Console.ReadKey();
